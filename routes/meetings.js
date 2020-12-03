@@ -155,7 +155,7 @@ router.post('/msg', function (req, res, next) {
           <body>
           <p class="quote">
           ${req.body.msg}
-          <cite>-${meeting.user1.name}</cite>
+          <cite>-${user.name}</cite>
           </p>
           Continue the conversation or Meet live at: <a href="${meetingLink}"> This Link</a>
           </body>
