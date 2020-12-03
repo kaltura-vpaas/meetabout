@@ -1,0 +1,57 @@
+<% include partials/header %>
+
+<link rel="stylesheet" href="/stylesheets/index.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script type="text/javascript" src="javascripts/_index.js"></script>
+<script type="text/javascript">
+    var allTopics = <%- JSON.stringify(allTopics) %>;
+</script>
+</head>
+
+<body onload="doOnLoad(allTopics,<%= user ? 'true':'false'%>)">
+    <% include partials/login %>
+    <% if(messages != ''){%>
+    <div class="flash"><%=messages%></div>
+    <%}%>
+    <h2>
+        What are you interested in having a meeting about?
+    </h2>
+    <div id="selectable">
+        <% topics.forEach(function(topic){ 
+            var selClass="";
+            if(user && user.topics.includes(topic.id)) {
+                selClass="topic-interested";
+            } 
+        %>
+    <span class="<%=selClass%>" id="<%=topic.id%>" onclick="saveJax('<%=topic.id%>')">
+        <%=topic.name%>
+    </span>
+    <% }); %>
+    <div class="newtopic" style="border:1px solid lightgrey; padding:15px;">
+        <form id="formAddTopic" action="/addtopic" method="POST">
+            <label for="newtopic">More topics:</label>
+            <input style="border-radius:8px;height:22px;width:200px;" name="newtopic" id="newtopic">
+            <input type="hidden" name="newtopic-id" id="newtopic-id">
+            <tt id="emptyMessage"></tt>
+            <input type="submit" id="addNew" style="display: none;" value="Add new topic">
+        </form>
+    </div>
+    </div>
+
+    <div id="yourdesc">
+        <h2>A bit about yourself:</h2>
+        <form id="descform" action="/updatedesc" method="POST">
+            <textarea name="desc"><% if(user) { %><%=user.desc%><% } %></textarea>
+          
+                <input class="findmeetingsubmit" type="submit" value="Find Meetings">
+          
+           
+        </form>
+    </div>
+    <br>
+    
+    <div id="modalLogin" class="modal">
+        Please Login:
+        <% include partials/login_socials.ejs %>
+    </div>
+    <% include partials/footer.ejs %>

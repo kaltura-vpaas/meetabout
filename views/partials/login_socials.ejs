@@ -1,0 +1,28 @@
+<% if (user) { 
+    if(user.profile_photo_url) {%>
+<img style="width:36px;height:36px;border-radius: 5px;" src="<%=user.profile_photo_url%>">
+<%}%>
+    <%= user.name %>
+<% } else { %>
+<div class="loginitem">
+    <a href="/auth/microsoft"><img class="loginimg" src="/images/microsoft.png">Login with Microsoft</a>
+</div>
+<div class="loginitem">
+    <a href="/auth/github"><img class="loginimg" src="/images/github.png">Login With Github</a>
+</div>
+<div class="loginitem">
+    <a href="/auth/linkedin"><img class="loginimg" src="/images/linkedin.png">Login With Linkedin</a>
+</div>
+<div class="loginitem">
+    <a href="/auth/google"><img class="loginimg" src="/images/google.png">Login With Google</a>
+</div>
+<!-- <form action="/login" method="post">
+        <label>Name:</label>
+        <input type="text" name="username" /><br />
+        <label>Email:</label>
+        <input type="text" name="password" />
+        <input type="submit" value="Submit" />
+    </form>
+    -->
+
+<%}%>

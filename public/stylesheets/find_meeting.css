@@ -1,0 +1,47 @@
+    .topic-interested:hover {
+        background-color: lightgrey;
+    }
+
+    .topic-interested {
+        border: 1px solid lightgrey;
+        border-radius: 5px;
+    }
+    
+    #selectable .ui-selected {
+        background: #F39814;
+        color: white;
+    }
+
+    #selectable {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0;
+        padding: 0;
+        width: 60%;
+    }
+
+    #selectable span {
+        border-radius: 8px;
+        margin: 3px;
+        padding: 0.4em;
+        font-size: 1.4em;
+        height: 18px;
+        border: 1px solid lightgrey;
+        border-radius: 5px;
+    }
+
+    #selectable span:hover {
+        background-color: lightgrey;
+    }
+    
+    .user:hover {
+        background-color: grey;   
+    }
+
+    .userexist {
+        background-color:darkgray;
+    }
+
+    .userexist a {
+        color:white;
+    }

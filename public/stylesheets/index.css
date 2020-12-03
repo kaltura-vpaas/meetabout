@@ -1,0 +1,57 @@
+    .topic-interested {
+        background: #F39814;
+        color: white;
+    }
+
+    #selectable span:hover {
+        background-color: lightgray;
+    }
+
+    #selectable {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0;
+        padding: 0;
+        width: 60%;
+    }
+
+    #yourdesc textarea {
+        width: 60%;
+    }
+
+    #selectable span {
+        border-radius: 8px;
+        margin: 3px;
+        padding: 0.4em;
+        font-size: 1.4em;
+        height: 18px;
+    }
+
+    .newtopic {
+        margin: 3px;
+        padding: 0.4em;
+        font-size: 1.4em;
+        height: 18px;
+        background-color: #F7F7F7;
+        border-radius: 8px;
+    }
+    
+ 
+    .findmeetingsubmit:hover {
+        background-color: lightgray;
+    }
+ 
+    .findmeetingsubmit {
+        border: none;
+        background-color: #F39814;
+        color: white;
+        font-size: 48px;
+        font-weight: bold;
+        font-size: 64px;
+        background-color: #F39814;
+        padding: 15px;
+        border-radius: 25px;
+        display: table;
+        margin: auto;
+        margin-top: 5px;
+    }

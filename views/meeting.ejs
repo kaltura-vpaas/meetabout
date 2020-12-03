@@ -1,0 +1,55 @@
+<% include partials/header %>
+
+<link rel="stylesheet" href="/stylesheets/meeting.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+</head>
+
+<body>
+    <% include partials/login %>
+    <h2>A meeting about: <%=topic.name%></h2>
+    <div style="margin: auto;width:100%">
+        <div class="user">
+            <img src="<%=user1.profile_photo_url%>">
+            <%=user1.name%>
+            <div class="userdesc"><%=user1.desc%></div>
+        </div>
+        <div class="user">
+            <img src="<%=user2.profile_photo_url%>">
+            <%=user2.name%>
+            <div class="userdesc"><%=user2.desc%></div>
+        </div>
+    </div>
+
+    <br>
+    <a href="<%=meetingLink%>">Link to this meeting</a>
+    <br><br>
+    <div class="joinmeeting">
+        <a href="<%=joinLink%>">Join Meeting</a>
+    </div>
+
+    <BR>
+
+    <div id="#meetingchat">
+        <% if(locals.messages) { 
+            messages.forEach(function(msg){ 
+                var msgStyle; %>
+        <%if(msg.user._id == user._id){
+            msgStyle="from-me";
+         }else{ 
+            msgStyle='from-them';
+         } %>
+        <img src="<%=msg.user.profile_photo_url%>"> <%=msg.user.name%>
+        <p class="<%=msgStyle%>">
+            <%=msg.message%>
+        </p>
+        <%})};%>
+    </div>
+    
+    <h2>Strike up a conversation: </h2>
+
+    <form method="POST" action="/meetings/msg">
+        <input type="hidden" name="meetingId" value="<%=meetingId%>">
+        <textarea style="width:40vw;" name="msg"></textarea>
+        <input type="submit">
+    </form>
+    <% include partials/footer.ejs %>

@@ -1,0 +1,36 @@
+{
+  "name": "meetngreet",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "./bin/www",
+    "dev": "DEBUG=kaltura-meetngreet:* nodemon --inspect ./bin/www",
+    "seed": "node seed.js"
+  },
+  "dependencies": {
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "~1.4.4",
+    "cookie-session": "^1.4.0",
+    "debug": "~2.6.9",
+    "dotenv": "^8.2.0",
+    "ejs": "~2.6.1",
+    "express": "~4.16.1",
+    "express-session": "^1.17.1",
+    "http-delayed-response": "^0.0.4",
+    "http-errors": "~1.6.3",
+    "kaltura-client": "^16.10.0",
+    "mongoose": "^5.10.11",
+    "morgan": "~1.9.1",
+    "nodemailer": "^6.4.15",
+    "nodemon": "^2.0.6",
+    "passport": "^0.4.1",
+    "passport-azure-ad": "^4.3.0",
+    "passport-azure-ad-oauth2": "^0.0.4",
+    "passport-github": "^1.1.0",
+    "passport-google-oauth20": "^2.0.0",
+    "passport-linkedin-oauth2": "^2.0.0",
+    "passport-local": "^1.0.0",
+    "passport-microsoft": "^0.1.0",
+    "request": "^2.88.2"
+  }
+}
