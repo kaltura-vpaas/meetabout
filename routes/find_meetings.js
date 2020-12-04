@@ -42,7 +42,7 @@ router.get('/interested', function (req, res, next) {
       _users = _users.value;
       _myMeetings = _myMeetings.value;
       res.setHeader('Content-Type', 'application/json');
-      res.end(JSON.stringify({ "users": _users, "mymeeting": _myMeetings[0] }));
+      res.end(JSON.stringify({ "users": _users, "myMeetings": _myMeetings }));
     });
   } catch (e) {
     console.log(e.message);
