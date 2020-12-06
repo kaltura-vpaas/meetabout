@@ -74,7 +74,7 @@ Here is what a meeting page looks like:
 
 <img src="readme_images/meetingpage.png" alt="meetingpage" style="zoom:70%;" />
 
-If either user on this meeting page clicks on the "Join Meeting" Button they will enter a live, virtual meeting room like this:<img src="/Users/hunterp/Documents/GitHub/meetabout/readme_images/newrow_room.png" alt="newrow_room" style="zoom:35%;" />
+If either user on this meeting page clicks on the "Join Meeting" Button they will enter a live, virtual meeting room like this:<img src="readme_images/newrow_room.png" alt="newrow_room" style="zoom:35%;" />
 
 
 
