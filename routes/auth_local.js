@@ -32,11 +32,11 @@ passport.use(new LocalStrategy(
   }
 ));
 
-/*router.post('/', 
+router.post('/', 
   passport.authenticate('local', { failureRedirect: '/login' }),
   function(req, res) {
     res.redirect('/');
   }
-);*/
+);
 
 module.exports = router;
