@@ -1,12 +1,12 @@
 # Meetabout
 
-*Meetabout* is a webapp that facilitates virtual meetings between strangers to discuss shared interests. So, if two people decide to meet to talk about X". *Meetabout*  leverages the easy-to-use [Virtual Meeting Room API](https://github.com/kaltura-vpaas/virtual-meeting-rooms) to host the meeting on the Kaltura platform.
+*Meetabout* is a web app that facilitates virtual meetings between strangers to discuss shared interests. So, if two people decide to meet to talk about X, *Meetabout*  leverages the easy-to-use [Virtual Meeting Room API](https://github.com/kaltura-vpaas/virtual-meeting-rooms) to host the meeting on the Kaltura platform.
 
 ## Getting Started
 
 ### Things to Know
 
-*Meetabout* a sample application not intended to run in a production environment in its current state.
+*Meetabout* is a sample application not intended to run in a production environment in its current state.
 
 ### Live Demo:
 
@@ -32,16 +32,15 @@ MONGO_URI= #mongodb+srv://
 KALTURA_SERVICE_URL=https://www.kaltura.com
 KALTURA_ADMIN_SECRET= #obtained from https://kmc.kaltura.com/index.php/kmcng/settings/integrationSettings
 KALTURA_PARTNER_ID=#obtained from https://kmc.kaltura.com/index.php/kmcng/settings/integrationSettings
-KALTURA_USER_ID=#set it to the kaltura user designated as admin. A user ID can be an email or other alphanumeric string. This is normally the email address you have created your kaltura account with
+KALTURA_USER_ID=#set it to the Kaltura user designated as admin. This is usually the email address you used to create your Kaltura account
 ```
-
 4. Run the app: `npm start`
 
 ### Logging In
 
-*Meetabout* requires a logged-in user to work. Any attempt to execute the app will force a modal login window to appear. The default login method uses *passportjs* local strategy, which is completely insecure and therefore you should only run this on your local machine. Of course this approach does make it very easy to get up and running quickly. 
+*Meetabout* requires a logged-in user to work. Any attempt to execute the app will force a modal login window to appear. The default login method uses `passportjs` local strategy, which is completely insecure and therefore  should only run on your local machine. Of course this approach does make it very easy to get up and running quickly. 
 
-**Note:** If you want to run *Meetabout* as a production app, comment out `router.post('/', ` in `routes/auth_local.js` and implement other authentication strategies. For example, the GitHub, LinkedIn, Microsoft and Google OAuth strategies are implemented in `routes/auth_<x>` and you can uncomment those routes from `app.js`. You would also need to create OAuth credentials of your own for those services and supply the keys in `.env`.
+**Note:** If you want to run *Meetabout* as a production app, comment out `router.post('/', ` in `routes/auth_local.js` and implement other authentication strategies. For example, the GitHub, LinkedIn, Microsoft and Google OAuth strategies are implemented in `routes/auth_<x>` and you can uncomment those routes from `app.js`. You would also need to create OAuth credentials for those services and supply the keys in `.env`.
 
 Once logged in, you can begin using the app!
 
@@ -118,7 +117,7 @@ The virtual meeting room has now been created and is ready to be used!
 
 ### Joining the Virtual Meeting Room
 
-Some preparation is needed to join the `resource` or virtual meeting room. The room needs to know your identity, as well your user type. Kaltura can designate meeting users as either admins or viewers, where the admins are entitled with special privileges. However, in *Meetabout*,  both users are treated as equals and both will be made admins.
+Some preparation is needed to join the `resource` or virtual meeting room. The room needs to know your identity and your user type. Kaltura can designate meeting users as either admins or viewers, where the admins have special privileges. However, in *Meetabout*, both users are treated as equals and both will be made admins.
 
 In order to identify a user to the room, we need to create a [Kaltura Session](https://github.com/kaltura-vpaas/virtual-meeting-rooms#creating-a-kaltura-session) with some metadata related to the Virtual Meeting Room API, and this is kicked off from [/routes/meetings.js](https://github.com/kaltura-vpaas/meetabout/blob/master/routes/meetings.js) right after `.save` from above by calling:
 
