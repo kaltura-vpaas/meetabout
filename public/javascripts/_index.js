@@ -27,7 +27,7 @@ function saveJax(topicId) {
 function doOnLoad(topics, isLoggedIn) {
     if (!isLoggedIn) {
         $(document).on('click', function (e) {
-            if (e?.target?.href?.includes("auth")) {
+            if (e?.target?.href?.includes("auth") || e?.target?.className == 'allow') {
                 //do nothing, aka don't show login
                 //popup if user clicks on a login link
                 return
