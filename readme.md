@@ -12,7 +12,7 @@ This is a sample application and is not intended to run in a production environm
 
 1. [Nodejs](https://nodejs.org/en/) 
 2. MongoDB: recommended to use the [free, hosted cloud Mongo service](https://www.mongodb.com/)
-3. A Kaltura account. Create a free account [here](https://corp.kaltura.com/video-paas/registration/).
+3. A Kaltura account. Create a free account [here](https://corp.kaltura.com/video-paas/registration?utm_campaign=Meetabout&utm_medium=affiliates&utm_source=GitHub).
 4. Send an email to <vpaas@kalutra.com> to activate Meetings on your Kaltura account.
 
 ### Install and Run
@@ -22,7 +22,7 @@ This is a sample application and is not intended to run in a production environm
 3. Copy `.env.template` to `.env` and populate the following required fields (other fields in the file are not required to run this app):
 
 ```
-SESSION_SECRET= #randomstring
+SESSION_SECRET= #Key used for encrypting session cookies
 SERVER_HOST_URL=http://localhost:3000
 MONGO_URI= #mongodb+srv://
 KALTURA_SERVICE_URL=https://www.kaltura.com
