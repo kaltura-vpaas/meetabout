@@ -142,7 +142,7 @@ router.post('/msg', function (req, res, next) {
         }
 
         getTransporter().sendMail({
-          from: '"MeetAbout" <kmeetabout@gmail.com>', // sender address
+          from: '"MeetAbout" '+process.env.SMTP_FROM, // sender address
           to: otherUser.email, // list of receivers
           subject: "MeetAbout [New Message]! on: " + meeting.topic.name, // Subject line
           html: `
