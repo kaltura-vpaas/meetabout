@@ -1,25 +1,25 @@
 # Meetabout
 
-Meetabout is an app that tries to make meetings between strangers about topics easy. Eg "Let's meet about X" Meetabout is an example implementation of the Kaltura `Virtual Meeting Room` API. 
+The *Meetabout* application facilitates virtual meetings between strangers to discuss commonly interested topics. For example, consider the scenario "Let's meet to talk about X". *Meetabout* leverages the easy-to-use [Virtual Meeting Room API](https://github.com/kaltura-vpaas/virtual-meeting-rooms) to host the meeting on the Kaltura platform.
 
-## Getting started:
+## Getting Started
 
-### Things to know:
+### Things to Know
 
-This is a demonstration of meetabout, in no way is this demo code intended to run in any production environment.
+This is a sample application and is not intended to run in a production environment in it's current state.
 
-### Prerequisites:
+### Prerequisites
 
 1. [Nodejs](https://nodejs.org/en/) 
-2. MongoDB. I recommend the free, hosted cloud Mongo service https://www.mongodb.com/
-3. A Kaltura Account: NEED LINK
-4. Meetings need to be activated for your Kaltura account. Please email vpaas@kaltura.com 
+2. MongoDB: recommended to use the [free, hosted cloud Mongo service](https://www.mongodb.com/)
+3. A Kaltura account. Create a free account [here](https://corp.kaltura.com/video-paas/registration/).
+4. Send an email to <vpaas@kalutra.com> to activate Meetings on your Kaltura account.
 
-### Installation
+### Install and Run
 
-1. Clone the [Meetabout Github Repo:](https://github.com/kaltura-vpaas/meetabout) 
-2. run `npm install`
-3. Copy `.env.template` to .env and fill out the following required fields:
+1. Clone the [Meetabout Github Repo](https://github.com/kaltura-vpaas/meetabout) 
+2. Run `npm install`
+3. Copy `.env.template` to `.env` and populate the following required fields (other fields in the file are not required to run this app):
 
 ```
 SESSION_SECRET= #randomstring
@@ -28,35 +28,30 @@ MONGO_URI= #mongodb+srv://
 KALTURA_SERVICE_URL=https://www.kaltura.com
 KALTURA_ADMIN_SECRET= #obtained from https://kmc.kaltura.com/index.php/kmcng/settings/integrationSettings
 KALTURA_PARTNER_ID=#obtained from https://kmc.kaltura.com/index.php/kmcng/settings/integrationSettings
+KALTURA_USER_ID=#set it to a user designated as admin. A user ID can be an email or other alpha numeric string.
 ```
 
-There are many other credentials in .env, however, none of them are required to run the app. 
-
-Now you should be ready to run the app. So type:
-
-`npm start`
+4. Run the app: `npm start`
 
 ### Logging In
 
-Meetabout requires a logged-in user to work, and any attempt to use the app will force a modal login window to appear.  The default login method uses passportjs local strategy and is completely insecure and you should only run this on your local machine, however, this approach makes it very easy to get up and running.
+*Meetabout* requires a logged-in user to work. Any attempt to execute the app will force a modal login window to appear. The default login method uses *passportjs* local strategy, which is completely insecure and therefore you should only run this on your local machine. Of course this approach does make it very easy to quickly get up and running.
 
-**Note:** If you want to run meetabout as a production app, comment out `router.post('/', ` in `routes/auth_local.js` and implement other authentication strategies, for example, the github, linkedin, microsoft and google oauth strategies are implemented in `routes/auth_<x>` and you can uncomment those routes from `app.js` You would also need to create oauth credentials of your own for those services and supply the keys in `.env`
+**Note:** If you want to run *Meetabout* as a production app, comment out `router.post('/', ` in `routes/auth_local.js` and implement other authentication strategies. For example, the GitHub, LinkedIn, Microsoft and Google oauth strategies are implemented in `routes/auth_<x>` and you can uncomment those routes from `app.js`. You would also need to create oauth credentials of your own for those services and supply the keys in `.env`.
 
-Once you are logged in, you can use the app!
+Once logged in, you can begin using the app!
 
+### Adding a Topic
 
-
-### Adding a topic
-
-You will first want to create a topic to have a meeting about! So type a topic into "More Topics" and press "Add New Topic"
+Begin by creating a topic to have a meeting about! Enter a topic into "More Topics" and press "Add New Topic".
 
 <img src="readme_images/addtopic.png" alt="addtopic" style="zoom:50%;" />
 
-### Finding a meeting
+### Finding a Meeting
 
-If you click on the "Find Meetings" button next, you won't actually see anyone to meet with. At this point, you could go to another browser, login with a different user, subscribe to "First Topic" with both users. And now you will be able to see each other!! 
+ When clicking on the "Find Meetings" button, there will not be anyone to meet with. To find a (pseudo) partner, open another browser, login with a different user, and subscribe to "First Topic" with both users. After both users join, they will be able to see one another!
 
-You should see something like this: 
+The UI will look similar to this:
 
 <img src="readme_images/foundmeeting.png" alt="foundmeeting" style="zoom:75%;" />
 
@@ -64,42 +59,35 @@ Click on the other user to go to the meeting page.
 
 ## A Meeting!
 
-The meeting page is the place within meetabout where meetings happen on a given topic. It consists of: 
+The meeting page is the location within *Meetabout* where meetings take place on a given topic. It consists of:
 
-1. Descriptions of the two users in the meeting
+1. Descriptions of the users in the meeting
 2. A Join Meeting button
-3. A chat area where users can chat with each other via email and come back to this meeting page when a new message occurs.  Some setup is required to get the chat feature to work, and that will be covered later.
+3. A chat area where users can chat with each other via email and come back to this meeting page when a new message occurs.  Some setup is required to get the chat feature to work, which will be covered later.
 
-Here is what a meeting page looks like:
+A meeting page will look like so:
 
 <img src="readme_images/meetingpage.png" alt="meetingpage" style="zoom:70%;" />
 
-If either user on this meeting page clicks on the "Join Meeting" Button they will enter a live, virtual meeting room like this:<img src="readme_images/newrow_room.png" alt="newrow_room" style="zoom:35%;" />
+If any user on this meeting page clicks on the "Join Meeting" button, they will enter a live, virtual meeting room:
+<img src="readme_images/newrow_room.png" alt="newrow_room" style="zoom:35%;" />
 
+### Setting Up a Meeting: Beneath the Hood
 
+A Kaltura virtual meeting room is created and joined through a series of API calls, which are described in detail in the [integration guide](https://github.com/kaltura-vpaas/virtual-meeting-rooms). The [Virtual Room Manager App](https://github.com/kaltura-vpaas/liveroom_manager) is another helpful tool to understand it's usage.
 
-### Setting up a meeting: Beneath the hood
+Now, let's walk through the Meetings API, as it relates to *Meetabout*.
 
-A Kaltura virtual meeting room is created and joined through a certain set of API calls. You will also want to refer to [this guide]( https://github.com/kaltura-vpaas/virtual-meeting-rooms) for a fuller understand of the API. As well as download and play with the [Virtual Room Manager App](https://github.com/kaltura-vpaas/liveroom_manager)
-
-We will briefly cover the meeting API here as it relates to Meetabout.
-
-When a new meeting is created in Meetabout we are routed to [/routes/meetings.js](https://github.com/kaltura-vpaas/meetabout/blob/master/routes/meetings.js)
-
-The meeting is first created at this point: 
+To create a new meeting, we are routed to [/routes/meetings.js](https://github.com/kaltura-vpaas/meetabout/blob/master/routes/meetings.js) which calls the `createRoom` function in [/lib/createroom.js](https://github.com/kaltura-vpaas/meetabout/blob/master/lib/createroom.js):
 
 ```javascript
  createRoom(topicName, function (kalturaResponse) {
 ```
 
-Which calls the `createRoom` function from [/lib/createroom.js](https://github.com/kaltura-vpaas/meetabout/blob/master/lib/createroom.js)
-
-The completion of `kaltura.services.session.start(` which creates a [Kaltura Admin Session](https://github.com/kaltura-vpaas/virtual-meeting-rooms#creating-an-admin-session)
-
-Then proceeds to [create a meeting](https://github.com/kaltura-vpaas/virtual-meeting-rooms#creating-a-resource)
+`kaltura.services.session.start` creates a [Kaltura Admin Session](https://github.com/kaltura-vpaas/virtual-meeting-rooms#creating-an-admin-session) which is needed to [create the virtual room](https://github.com/kaltura-vpaas/virtual-meeting-rooms#creating-a-resource):
 
 ```javascript
-// Create the room
+// Create the virtual room
 let scheduleResource = new kaltura.objects.LocationScheduleResource();
 scheduleResource.name = topicName;
 scheduleResource.tags = "vcprovider:newrow";
@@ -108,9 +96,9 @@ kaltura.services.scheduleResource.add(scheduleResource)
 .execute(client)
 ```
 
-You will notice that we pass the topicName from Meetabout to be the topic of the Virtual Room. And that is it!
+Notice that the topicName from *Meetabout* is passed as the topic of the Virtual Room.
 
-The call to `kaltura.services.scheduleResource.add(scheduleResource)` creates a `resource` aka Virtual Meeting id and we save that string to the Mongo `Meeting` Model in [/routes/meetings.js](https://github.com/kaltura-vpaas/meetabout/blob/master/routes/meetings.js)
+The call to `kaltura.services.scheduleResource.add(scheduleResource)` creates a `resource`, which is Kaltura's terminology for a virtual room. The resource has an ID which is saved to the Mongo `Meeting` Model in [/routes/meetings.js](https://github.com/kaltura-vpaas/meetabout/blob/master/routes/meetings.js)
 
 ```javascript
 createRoom(topicName, function (kalturaResponse) {
@@ -122,35 +110,35 @@ createRoom(topicName, function (kalturaResponse) {
       }).save(function (err, doc) {
 ```
 
-So now the Virtual Meeting Room exists and is ready to be joined and used!
+The virtual meeting room has now been created and is ready to be used!
 
 ### Joining the Virtual Meeting Room
 
-Some prep work is needed to join the `resource` or virtual meeting room we just created. The room needs to know who you are, and also what kind of meeting user you are. Meeting rooms typically have admins and viewers where the admins have special privileges. However, in the case of Meetabout we assume both users are equals and we will make both of them admins. 
+Some preparation is needed to join the `resource` or virtual meeting room that was created. The room needs to know your identity, as well as the type of user that you are. Kaltura can designate meeting users as either admins or viewers, where the admins are entitled with special privileges. However, in the case of *Meetabout*, the assumption is that both users are equals and thus both will be designated as admins.
 
-In order to identify a user to the room, we need to create a [Kaltura Session](https://github.com/kaltura-vpaas/virtual-meeting-rooms#creating-a-kaltura-session) with some meta data related to the Virtual Meeting Room API. 
+In order to identify a user to the room, we need to create a [Kaltura Session](https://github.com/kaltura-vpaas/virtual-meeting-rooms#creating-a-kaltura-session) with some metadata related to the Virtual Meeting Room API.
 
-And this is kicked off from  [/routes/meetings.js](https://github.com/kaltura-vpaas/meetabout/blob/master/routes/meetings.js) right after `.save` from above by calling 
+This is kicked off from [/routes/meetings.js](https://github.com/kaltura-vpaas/meetabout/blob/master/routes/meetings.js) right after `.save` from above by calling:
 
 `  joinRoom(kalturaResponse.id, user.name, user.email, function (joinLink) {`
 
-which then calls [/lib/joinroom.js](/lib/joinroom.js) to create a [Kaltura Session](https://github.com/kaltura-vpaas/virtual-meeting-rooms#creating-a-kaltura-session) for the user that clicked the "Join Meeting" button. 
+This then calls [/lib/joinroom.js](/lib/joinroom.js) to create a [Kaltura Session](https://github.com/kaltura-vpaas/virtual-meeting-rooms#creating-a-kaltura-session) which is used to authenticate the user that clicked the "Join Meeting" button.
 
-The url scheme for the room follows the [convention for virtual meeting rooms:](https://github.com/kaltura-vpaas/virtual-meeting-rooms#creating-the-virtual-meeting-room-url) 
-
-and it is created in  [/lib/joinroom.js](/lib/joinroom.js)  
+The url scheme for the room follows the [convention for virtual meeting rooms](https://github.com/kaltura-vpaas/virtual-meeting-rooms#creating-the-virtual-meeting-room-url) and is created in [/lib/joinroom.js](/lib/joinroom.js):
 
 ```javascript
 let roomUrl = "https://" + partnerId + ".kaf.kaltura.com/virtualEvent/launch?ks=" + result;
 ```
 
-The `ks` is a string representing the `Kaltura Session` for the user for this meeting room. And the `partnerid` is your Kaltura VPaaS API account's id. 
+The `ks` is a string representing the `Kaltura Session` for the user for this meeting room. And the `partnerId` is your Kaltura VPaaS account's partner ID. 
 
-And thats it! This URL is ready to use!! And we pass this URL back to the meeting webpage and into the href of the "Join Meeting" button!
+And that is it! The URL is ready to use to join the room! It is passed back to the meeting webpage and into the *href* of the "Join Meeting" button!
 
-#### Email Setup: 
+#### Email Setup
 
-Note: if you want to understand how to integrate the Kaltura Virtual Room API better, you can skip this step as it is not required. A production app would use an smtp server at a company, or an smtp service. And for testing purposes, you can sign up for a free account at [ethereal](https://ethereal.email/ ) and fill out the following fields in `.env`  
+Note: this step is unrelated to the usage of the Kaltura Virtual Room API
+
+A production app would use an smtp server at a company, or an smtp service. For testing purposes, you can sign up for a free account at [ethereal](https://ethereal.email/) and fill out the following fields in `.env`:
 
 ```
 SMTP_HOST=smtp.ethereal.email
@@ -158,4 +146,3 @@ SMTP_USER=
 SMTP_PASS=
 SMTP_PORT=587
 ```
-
