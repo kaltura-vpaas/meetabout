@@ -45,7 +45,7 @@ Once logged in, you can begin using the app!
 
 Begin by creating a topic to have a meeting about! Enter a topic into "More Topics" and press "Add New Topic".
 
-<img src="readme_images/addtopic.png" alt="addtopic" style="zoom:50%;" />
+<img src="/assets/images/meetabout/addtopic.png" alt="addtopic" style="zoom:50%;" />
 
 ### Finding a Meeting
 
@@ -53,7 +53,7 @@ Begin by creating a topic to have a meeting about! Enter a topic into "More Topi
 
 The UI will look similar to this:
 
-<img src="readme_images/foundmeeting.png" alt="foundmeeting" style="zoom:75%;" />
+<img src="/assets/images/meetabout/foundmeeting.png" alt="foundmeeting" style="zoom:75%;" />
 
 Click on the other user to go to the meeting page.
 
@@ -67,10 +67,10 @@ The meeting page is the location within *Meetabout* where meetings take place on
 
 A meeting page will look like so:
 
-<img src="readme_images/meetingpage.png" alt="meetingpage" style="zoom:70%;" />
+<img src="/assets/images/meetabout/meetingpage.png" alt="meetingpage" style="zoom:70%;" />
 
 If any user on this meeting page clicks on the "Join Meeting" button, they will enter a live, virtual meeting room:
-<img src="readme_images/newrow_room.png" alt="newrow_room" style="zoom:35%;" />
+<img src="/assets/images/meetabout/newrow_room.png" alt="newrow_room" style="zoom:35%;" />
 
 ### Setting Up a Meeting: Beneath the Hood
 
