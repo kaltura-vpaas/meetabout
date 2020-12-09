@@ -1,5 +1,5 @@
     .topic-interested {
-        background: #F39814;
+        background:var(--kalorange);
         color: white;
     }
 

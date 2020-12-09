@@ -1,11 +1,11 @@
 <% include partials/header %>
 
-<meta http-equiv="refresh" content="5" />
 <link rel="stylesheet" href="/stylesheets/meeting.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script type="text/javascript" src="/javascripts/_meeting.js"></script>
 </head>
 
-<body>
+<body onload="onMeeting()">
     <% include partials/login %>
     <h2>A meeting about: <%=topic.name%></h2>
     <div style="margin: auto;width:100%">
@@ -26,29 +26,20 @@
         <a target="_blank" href="<%=joinLink%>">Join Meeting</a>
     </div>
 
-    <BR>
 
-    <div id="#meetingchat">
-        <% if(locals.messages) { 
-            messages.forEach(function(msg){ 
-                var msgStyle; %>
-        <%if(msg.user._id == user._id){
-            msgStyle="from-me";
-         }else{ 
-            msgStyle='from-them';
-         } %>
-        <img src="<%=msg.user.profile_photo_url%>"> <%=msg.user.name%>
-        <p class="<%=msgStyle%>">
-            <%=msg.message%>
-        </p>
-        <%})};%>
+    <div class="wrapper">
+        <div class="h_iframe">
+            <iframe id="chatFrame" height="2" width="2"  frameborder="0" allowfullscreen
+                src="/meetings/messages?meetingId=<%=meetingId%>"></iframe>
+        </div>
     </div>
-    
+
+
     <h2>Strike up a conversation: </h2>
 
     <form method="POST" action="/meetings/msg">
         <input type="hidden" name="meetingId" value="<%=meetingId%>">
         <textarea style="width:40vw;" name="msg"></textarea>
-        <input type="submit">
+        <input type="submit" value="Send">
     </form>
     <% include partials/footer.ejs %>
