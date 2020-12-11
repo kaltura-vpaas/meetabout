@@ -66,40 +66,53 @@ router.get('/newmeeting', function (req, res, next) {
 //and refreshes the joinroom link
 router.get('/meeting', function (req, res, next) {
   if (!req.isAuthenticated()) return next();
+  console.log("errr");
+  Meeting.findById(req.query.meetingId).populate('topic user1 user2')
+    .exec(function (err, meeting) {
+      if (err) {
+        console.log(err);  // handle errors
+      } else {
+        var user = req.session.passport.user;
+        //make sure only participant can see meeting
+        user = req.session.passport.user;
+        if (!(user._id == meeting.user1._id || user._id == meeting.user2._id)) {
+          res.render('error', { message: "You don't have access to this meeting" });
+        }
 
+        var user = req.session.passport.user;
+        joinRoom(meeting.kalturaResourceId, user.name, user.email, function (joinLink) {
+          res.render('meeting',
+            {
+              user: req.session.passport.user,
+              user1: meeting.user1,
+              user2: meeting.user2,
+              topic: meeting.topic,
+              joinLink: joinLink,
+              meetingId: meeting._id
+            });
+        });
+      }
+    });
+});
+
+//separate route for messages so it can be reloaded in a loop
+router.get('/messages', function (req, res, next) {
+  console.log("here");
   Promise.allSettled([
     Meeting.
       findById(req.query.meetingId).
-      populate('topic user1 user2'),
+      populate('user1 user2'),
     MeetingMessage.find({ meetingId: req.query.meetingId }).populate('user')
-
   ]).then(([meeting, meetingMsgs]) => {
     meeting = meeting.value;
     //make sure only participant can see meeting
     user = req.session.passport.user;
     if (!(user._id == meeting.user1._id || user._id == meeting.user2._id)) {
       res.render('error', { message: "You don't have access to this meeting" });
+    } else {
+      res.render('messages',{messages:meetingMsgs.value});
     }
-
-    var meetingLink = process.env.SERVER_HOST_URL +
-      "/meetings/meeting?meetingId=" + meeting._id;
-
-    var user = req.session.passport.user;
-    joinRoom(meeting.kalturaResourceId, user.name, user.email, function (joinLink) {
-      res.render('meeting',
-        {
-          user: req.session.passport.user,
-          user1: meeting.user1,
-          user2: meeting.user2,
-          topic: meeting.topic,
-          meetingLink: meetingLink,
-          joinLink: joinLink,
-          meetingId: meeting._id,
-          messages: meetingMsgs.value
-        });
-    });
-  }
-  );
+  })
 });
 
 //when a user posts a message for this meeting.
@@ -142,7 +155,7 @@ router.post('/msg', function (req, res, next) {
         }
 
         getTransporter().sendMail({
-          from: '"MeetAbout" <kmeetabout@gmail.com>', // sender address
+          from: '"MeetAbout" ' + process.env.SMTP_FROM, // sender address
           to: otherUser.email, // list of receivers
           subject: "MeetAbout [New Message]! on: " + meeting.topic.name, // Subject line
           html: `

@@ -3,21 +3,27 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+:root {
+  --kalblue: #006EFA;
+  --kalorange: #FFAA00;
+  --kal_lightblue: #41BEFF;
+}
+
 textarea {
   font: 20px "Lucida Grande", Helvetica, Arial, sans-serif;
   resize: none;
 }
 
 a {
-  color: #00B7FF;
+  color: var(--kal_lightblue);
   text-decoration: none;
 }
 
 .flash {
-  background-color: #00B7FF;
-  color:white;
+  background-color: var(--kal_lightblue);
+  color: white;
   display: inline-block;
-  padding:15px;
+  padding: 15px;
 }
 
 img {
@@ -26,29 +32,29 @@ img {
 
 .user {
   border-radius: 5px;
-  border:1px solid grey;
-  padding:5px;
-  margin:5px;
-  width:60%;
+  border: 1px solid grey;
+  padding: 5px;
+  margin: 5px;
+  width: 60%;
 }
 
 .userdesc {
   border-radius: 5px;
   background-color: lightgray;
-  padding:5px;
+  padding: 5px;
   margin-top: 5px;
-  color:black;
+  color: black;
 }
 
 .loginimg {
-  width:32px;
-  vertical-align:middle;
-  margin-right:5px;
+  width: 32px;
+  vertical-align: middle;
+  margin-right: 5px;
 }
 
 .loginitem {
-  margin:5px;
-  padding:5px;
+  margin: 5px;
+  padding: 5px;
   border: 1px solid grey;
 }
 
@@ -57,7 +63,7 @@ img {
 }
 
 h2 {
-  background-color: #65d3ff;
+  background-color: var(--kal_lightblue);
   display: inline-block;
   padding: 10px;
   border-radius: 25px;
@@ -65,10 +71,10 @@ h2 {
 
 .logo {
   font-size: 64px;
-  background-color: #00b7ff;
   padding: 15px;
   border-radius: 25px;
   display: table;
+  background-color: var(--kalblue);
 }
 
 .logo:hover {
