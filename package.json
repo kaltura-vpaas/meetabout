@@ -1,10 +1,10 @@
 {
-  "name": "meetngreet",
+  "name": "meetabout",
   "version": "0.0.0",
   "private": true,
   "scripts": {
     "start": "./bin/www",
-    "dev": "DEBUG=kaltura-meetngreet:* nodemon --inspect ./bin/www",
+    "dev": "DEBUG=kaltura-meetabout:* nodemon --inspect ./bin/www",
     "seed": "node seed.js"
   },
   "dependencies": {
