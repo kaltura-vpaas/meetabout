@@ -10,7 +10,7 @@
 
 
 .wrapper         {width: 50vw; height: 100%; margin-top: 15px  ;}
-.h_iframe        {position: relative; padding-top: 56%;}
+.h_iframe        {position: relative; padding-top: 200px;}
 .h_iframe iframe {position: absolute; top: 0; left: 0; width: 100%; height: 100%;}
 
 .joinmeeting {
