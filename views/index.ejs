@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script type="text/javascript" src="javascripts/_index.js"></script>
 <script type="text/javascript">
-    var allTopics = <%- JSON.stringify(allTopics) %>;
+    var allTopics = <%-JSON.stringify(allTopics) %>;
 </script>
 </head>
 
@@ -18,12 +18,9 @@
     </h2>
     <div id="selectable">
         <% topics.forEach(function(topic){ 
-            var selClass="";
-            if(user && user.topics.includes(topic.id)) {
-                selClass="topic-interested";
-            } 
+          
         %>
-    <span class="<%=selClass%>" id="<%=topic.id%>" onclick="saveJax('<%=topic.id%>')">
+    <span class="" id="<%=topic.id%>" onclick="saveJax('<%=topic.id%>')">
         <%=topic.name%>
     </span>
     <% }); %>
@@ -38,16 +35,7 @@
     </div>
     </div>
 
-    <div id="yourdesc">
-        <h2>A bit about yourself:</h2>
-        <form id="descform" action="/updatedesc" method="POST">
-            <textarea name="desc"><% if(user) { %><%=user.desc%><% } %></textarea>
-          
-                <input class="findmeetingsubmit" type="submit" value="Find Meetings">
-          
-           
-        </form>
-    </div>
+    <a href="/meetings/newmeeting?topicId=5fa0b750727b80b96fe8817e" class="findmeetingsubmit">Meet About</a>
     <br>
     
     <div id="modalLogin" class="modal">

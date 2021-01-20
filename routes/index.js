@@ -97,16 +97,6 @@ router.post('/addtopic', function (req, res, next) {
   });
 });
 
-router.post('/updatedesc', function (req, res, next) {
-  if (!req.isAuthenticated()) return next();
-  var user = req.session.passport.user;
-  
-  User.findByIdAndUpdate(user, {desc:req.body.desc},
-    function (err, data) {
-      if (err) return handleError(err);
-      res.redirect('/find_meetings');
-    }
-  );
-});
+
 
 module.exports = router;
