@@ -22,7 +22,7 @@ router.get('/', function (req, res, next) {
       console.log("TOPIC NAME " + topicName);
       var user = req.session.passport.user;
       if (topic.kalturaResourceId) {
-        joinRoom(kalturaResponse.id, user.name, user.email, function (joinLink) {
+        joinRoom(topic.kalturaResourceId, user.name, user.email, function (joinLink) {
           res.redirect(joinLink);
         });
       } else {
