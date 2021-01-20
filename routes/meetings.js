@@ -29,7 +29,6 @@ router.get('/newmeeting', function (req, res, next) {
           kalturaResourceId: kalturaResponse.id
         }).save(function (err, doc) {
           if (err){
-            console.log("HEYA");
             console.error(err);
           }
     

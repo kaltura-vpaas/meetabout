@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script type="text/javascript" src="javascripts/_index.js"></script>
 <script type="text/javascript">
-    var allTopics = <%-JSON.stringify(allTopics) %>;
+    var allTopics = <%- JSON.stringify(allTopics) %>;
 </script>
 </head>
 
@@ -18,9 +18,12 @@
     </h2>
     <div id="selectable">
         <% topics.forEach(function(topic){ 
-          
+            var selClass="";
+            if(user && user.topics.includes(topic.id)) {
+                selClass="topic-interested";
+            } 
         %>
-    <span class="" id="<%=topic.id%>" onclick="saveJax('<%=topic.id%>')">
+    <span class="<%=selClass%>" id="<%=topic.id%>" onclick="saveJax('<%=topic.id%>')">
         <%=topic.name%>
     </span>
     <% }); %>
