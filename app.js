@@ -11,8 +11,6 @@ mongoose.connect(process.env['MONGO_URI'],
 mongoose.set('debug', true)
 require('./models/User');
 require('./models/Topic');
-require('./models/Meeting');
-
 
 var createError = require('http-errors');
 var express = require('express');
@@ -54,6 +52,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 var indexRouter = require('./routes/index');
 var meetingsRouter = require('./routes/meetings');
+var findMeetingsRouter = require('./routes/find_meetings');
 var authMSRouter = require('./routes/auth_ms');
 var authLocalRouter = require('./routes/auth_local');
 var authGithubRouter = require('./routes/auth_github');
@@ -63,6 +62,7 @@ var authGoogleRouter = require('./routes/auth_google');
 
 app.use('/', indexRouter);
 app.use('/meetings', meetingsRouter);
+app.use('/find_meetings', findMeetingsRouter);
 app.use('/login', authLocalRouter);
 app.use('/auth/microsoft', authMSRouter);
 app.use('/auth/github', authGithubRouter);

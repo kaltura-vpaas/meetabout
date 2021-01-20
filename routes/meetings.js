@@ -1,6 +1,5 @@
 const Topic = require('../models/Topic');
 const User = require('../models/User');
-const Meeting = require('../models/Meeting');
 var fs = require('fs');
 
 var getTransporter = require('../lib/mailer');
@@ -12,7 +11,7 @@ var joinRoom = require('../lib/joinroom');
 
 //handles creation of meeting between specified users
 //the first time a new meeting is created
-router.get('/newmeeting', function (req, res, next) {
+router.get('/', function (req, res, next) {
   if (!req.isAuthenticated()) return next();
 
   Topic.findById(req.query.topicId).exec(function (err, topic) {
@@ -21,23 +20,26 @@ router.get('/newmeeting', function (req, res, next) {
     } else {
       var topicName = topic.name;
       console.log("TOPIC NAME " + topicName);
-      console.log("NED");
-
-      createRoom(topicName, function (kalturaResponse) {
-        new Meeting({
-          topic: topic._id,
-          kalturaResourceId: kalturaResponse.id
-        }).save(function (err, doc) {
-          if (err){
-            console.error(err);
-          }
-    
-          var user = req.session.passport.user;
-          joinRoom(kalturaResponse.id, user.name, user.email, function (joinLink) {
-            res.redirect(joinLink);
+      var user = req.session.passport.user;
+      if (topic.kalturaResourceId) {
+        joinRoom(kalturaResponse.id, user.name, user.email, function (joinLink) {
+          res.redirect(joinLink);
+        });
+      } else {
+        createRoom(topicName, function (kalturaResponse) {
+          console.log("creating room");
+          topic.kalturaResourceId = kalturaResponse.id;
+          topic.save(function (err, doc) {
+            if (err) {
+              console.error(err);
+            } else {
+              joinRoom(kalturaResponse.id, user.name, user.email, function (joinLink) {
+                res.redirect(joinLink);
+              });
+            }
           });
         });
-      });
+      }
     }
   });
 });

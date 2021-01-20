@@ -36,22 +36,8 @@
         border-radius: 8px;
     }
     
- 
     .findmeetingsubmit:hover {
         background-color: lightgray;
-    }
- 
-    .findmeetingsubmit {
-        border: none;
-        border-radius: 25px;
-        background-color:var(--kalorange);
-        color: white;
-        font-weight: bold;
-        font-size: 64px;
-        padding: 15px;
-        display: table;
-        margin: auto;
-        margin-top: 5px;
     }
 
     .modal {

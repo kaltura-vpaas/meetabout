@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const TopicSchema = new Schema({
-  name: { type: String, default: '' }
+  name: { type: String, default: '' },
+  kalturaResourceId: { type: String, default: '' }
 });
 
 const Topic = mongoose.model('Topic', TopicSchema);
