@@ -71,7 +71,7 @@ function notifyMeeting(topic) {
             from: '"MeetAbout" ' + process.env.SMTP_FROM, // sender address
             to: user.email, // list of receivers
             subject: "MeetAbout [New Message]! on: " + topic.name, // Subject line
-            html: buildMail(emailCss, topic.name, joinLink),
+            html: buildMail(emailCss, topic.name, joinLink,user._id),
           }, function (error, info) {
             console.log(error);
             console.log(info);
@@ -82,7 +82,7 @@ function notifyMeeting(topic) {
   });
 }
 
-function buildMail(emailCss, topic, meetingLink) {
+function buildMail(emailCss, topic, meetingLink,userId) {
   return `<html>
   <head> 
   <style>
@@ -94,9 +94,26 @@ function buildMail(emailCss, topic, meetingLink) {
   Meet live at: <a href="${meetingLink}">Here</a>
   <hr>
   From <a href="${process.env.SERVER_HOST_URL}">Meetabout</a>
+  <br>
+  Too many emails? 
+  <a href="${process.env.SERVER_HOST_URL}/meetings/unsub?userId=${userId}">Unsubscribe</a>
   </body>
   </html>
   `;
 }
+
+router.get('/unsub', function (req, res, next) {
+  User.findById(req.query.userId).exec(function (err, user) {
+    if (err) {
+      console.log(err);  // handle errors
+    } else {
+      user.subscribed=false;
+      user.save(function (err) {
+        if (err) return handleError(err);
+        res.send("You have been unsubscribed");
+      });
+    }
+  });
+});
 
 module.exports = router;
