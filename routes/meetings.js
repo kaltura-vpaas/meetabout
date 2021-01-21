@@ -63,8 +63,11 @@ function notifyMeeting(topic) {
         if(user.email != "hunterp@gmail.com") {
           return;
         } 
-        console.log("HUNTER");
-        console.log(user);
+
+        //only notify subscribed users
+        if(!user.subscribed){
+          return
+        }
 
         joinRoom(topic.kalturaResourceId, user.name, user.email, function (joinLink) {
           getTransporter().sendMail({
@@ -91,9 +94,12 @@ function buildMail(emailCss, topic, meetingLink,userId) {
   </head>
   <body>
   <h3>A meeting is happening now about: ${topic}</h3>
-  Meet live at: <a href="${meetingLink}">Here</a>
+  Meet live: <a href="${meetingLink}">Here</a>
+  <br>
   <hr>
+  <br>
   From <a href="${process.env.SERVER_HOST_URL}">Meetabout</a>
+  <br>
   <br>
   Too many emails? 
   <a href="${process.env.SERVER_HOST_URL}/meetings/unsub?userId=${userId}">Unsubscribe</a>
