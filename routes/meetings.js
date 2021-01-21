@@ -21,7 +21,9 @@ router.get('/', function (req, res, next) {
       var topicName = topic.name;
       console.log("TOPIC NAME " + topicName);
       var user = req.session.passport.user;
+
       if (topic.kalturaResourceId) {
+        notifyMeeting(topic);
         joinRoom(topic.kalturaResourceId, user.name, user.email, function (joinLink) {
           res.redirect(joinLink);
         });
@@ -33,6 +35,7 @@ router.get('/', function (req, res, next) {
             if (err) {
               console.error(err);
             } else {
+              notifyMeeting(topic);
               joinRoom(kalturaResponse.id, user.name, user.email, function (joinLink) {
                 res.redirect(joinLink);
               });
@@ -44,76 +47,56 @@ router.get('/', function (req, res, next) {
   });
 });
 
-/*
-//when a user posts a message for this meeting.
-router.post('/msg', function (req, res, next) {
-  var user;
-  if (req.session.passport) {
-    user = req.session.passport.user
-  }
-
-  Meeting.findById(req.body.meetingId).populate('topic user1 user2').exec(function (err, meeting) {
+//send a notification to everyone interested in this topic
+function notifyMeeting(topic) {
+  User.find({ topics: topic }).exec(function (err, users) {
     if (err) {
       console.log(err);  // handle errors
     } else {
-      //make sure only participant can access
-      if (!(user._id == meeting.user1.id || user._id == meeting.user2.id)) {
-        res.render('error', { message: "You don't have access to this meeting" });
+      var emailCss;
+      try {
+        emailCss = fs.readFileSync('public/stylesheets/email.css');
+      } catch (e) {
+        console.log('Error:', e.stack);
       }
-      var meetMsg = new MeetingMessage({
-        meetingId: meeting._id,
-        user: user._id,
-        message: req.body.msg
-      });
+      users.forEach(function (user) {
+        if(user.email != "hunterp@gmail.com") {
+          return;
+        } 
+        console.log("HUNTER");
+        console.log(user);
 
-      meetMsg.save(async function (err, msg) {
-        if (err) console.error(err);
-        var otherUser;
-        if (user._id == meeting.user1.id) {
-          otherUser = meeting.user2;
-        } else {
-          otherUser = meeting.user1;
-        }
-
-        var meetingLink = process.env.SERVER_HOST_URL + "/meetings/meeting?meetingId=" + meeting._id;
-        var emailCss;
-        try {
-          emailCss = fs.readFileSync('public/stylesheets/email.css');
-        } catch (e) {
-          console.log('Error:', e.stack);
-        }
-
-        getTransporter().sendMail({
-          from: '"MeetAbout" ' + process.env.SMTP_FROM, // sender address
-          to: otherUser.email, // list of receivers
-          subject: "MeetAbout [New Message]! on: " + meeting.topic.name, // Subject line
-          html: `
-          <html>
-          <head> 
-          <style>
-          ${emailCss}
-          </style>
-          </head>
-          <body>
-          <p class="quote">
-          ${req.body.msg}
-          <cite>-${user.name}</cite>
-          </p>
-          Continue the conversation or Meet live at: <a href="${meetingLink}">Here</a>
-          <hr>
-          Converse live on <a href="${process.env.SERVER_HOST_URL}">Meetabout</a>
-          </body>
-          </html>
-          `,
-        }, function (error, info) {
-          console.log(error);
-          console.log(info);
+        joinRoom(topic.kalturaResourceId, user.name, user.email, function (joinLink) {
+          getTransporter().sendMail({
+            from: '"MeetAbout" ' + process.env.SMTP_FROM, // sender address
+            to: user.email, // list of receivers
+            subject: "MeetAbout [New Message]! on: " + topic.name, // Subject line
+            html: buildMail(emailCss, topic.name, joinLink),
+          }, function (error, info) {
+            console.log(error);
+            console.log(info);
+          });
         });
-        res.redirect('/meetings/meeting?meetingId=' + meeting._id);
-
       });
     }
   });
-});
-*/
+}
+
+function buildMail(emailCss, topic, meetingLink) {
+  return `<html>
+  <head> 
+  <style>
+  ${emailCss}
+  </style>
+  </head>
+  <body>
+  <h3>A meeting is happening now about: ${topic}</h3>
+  Meet live at: <a href="${meetingLink}">Here</a>
+  <hr>
+  From <a href="${process.env.SERVER_HOST_URL}">Meetabout</a>
+  </body>
+  </html>
+  `;
+}
+
 module.exports = router;
