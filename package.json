@@ -1,7 +1,8 @@
 {
   "name": "meetabout",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
+  "engines" : { "node" : ">=12.0" },
   "scripts": {
     "start": "./bin/www",
     "dev": "DEBUG=kaltura-meetabout:* nodemon --inspect ./bin/www",
