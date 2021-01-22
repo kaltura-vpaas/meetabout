@@ -7,8 +7,10 @@ var LocalStrategy = require('passport-local').Strategy;
 
 passport.use(new LocalStrategy(
   function (name, email, done) {
+    console.log("AUTH LOCAL::");
     User.findOne({ email: email }, function (err, user) {
       if (err) {
+        console.log("AUTH LOCAL::ERROR");
         console.log(err);  // handle errors!
       }
       if (!err && user !== null) {
@@ -21,6 +23,7 @@ passport.use(new LocalStrategy(
         });
         user.save(function (err) {
           if (err) {
+            console.log("AUTH LOCAL::ERROR");
             console.log(err);  // handle errors!
           } else {
             console.log("saving user ...");
@@ -33,8 +36,9 @@ passport.use(new LocalStrategy(
 ));
 
 router.post('/', 
-  passport.authenticate('local', { failureRedirect: '/login' }),
+  passport.authenticate('local', { failureRedirect: '/' }),
   function(req, res) {
+    console.log("HERE");
     res.redirect('/');
   }
 );

@@ -116,3 +116,4 @@ dist
 
 database.sqlite3
 .vscode/launch.json
+.env.PROD
