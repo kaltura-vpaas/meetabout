@@ -21,10 +21,11 @@ router.get('/', function (req, res, next) {
       var topicName = topic.name;
       console.log("TOPIC NAME " + topicName);
       var user = req.session.passport.user;
+      const [firstName, lastName ] = nameSplit(user.name);
 
       if (topic.kalturaResourceId) {
         notifyMeeting(topic);
-        joinRoom(topic.kalturaResourceId, user.name, user.email, function (joinLink) {
+        joinRoom(topic.kalturaResourceId, firstName, lastName, user.email, function (joinLink) {
           res.redirect(joinLink);
         });
       } else {
@@ -36,7 +37,7 @@ router.get('/', function (req, res, next) {
               console.error(err);
             } else {
               notifyMeeting(topic);
-              joinRoom(kalturaResponse.id, user.name, user.email, function (joinLink) {
+              joinRoom(kalturaResponse.id, firstName, lastName, user.email, function (joinLink) {
                 res.redirect(joinLink);
               });
             }
@@ -46,6 +47,19 @@ router.get('/', function (req, res, next) {
     }
   });
 });
+
+function nameSplit(name) {
+  var names = name.split(" ");
+  var firstName, lastName;
+  if (names.length > 1) {
+    firstName = names[0];
+    lastName = names[1];
+  } else {
+    firstName = names[0];
+    lastName = "_";
+  }
+  return [firstName, lastName];
+}
 
 //send a notification to everyone interested in this topic
 function notifyMeeting(topic) {
@@ -60,21 +74,19 @@ function notifyMeeting(topic) {
         console.log('Error:', e.stack);
       }
       users.forEach(function (user) {
-        if(user.email != "hunterp@gmail.com") {
-          return;
-        } 
-
         //only notify subscribed users
-        if(!user.subscribed){
+        if (!user.subscribed) {
           return
         }
 
-        joinRoom(topic.kalturaResourceId, user.name, user.email, function (joinLink) {
+
+        const [ firstName, lastName ] = nameSplit(user.name);
+        joinRoom(topic.kalturaResourceId, firstName, lastName, user.email, function (joinLink) {
           getTransporter().sendMail({
             from: '"MeetAbout" ' + process.env.SMTP_FROM, // sender address
             to: user.email, // list of receivers
             subject: "MeetAbout [New Message]! on: " + topic.name, // Subject line
-            html: buildMail(emailCss, topic.name, joinLink,user._id),
+            html: buildMail(emailCss, topic.name, joinLink, user._id),
           }, function (error, info) {
             console.log(error);
             console.log(info);
@@ -85,7 +97,7 @@ function notifyMeeting(topic) {
   });
 }
 
-function buildMail(emailCss, topic, meetingLink,userId) {
+function buildMail(emailCss, topic, meetingLink, userId) {
   return `<html>
   <head> 
   <style>
@@ -113,7 +125,7 @@ router.get('/unsub', function (req, res, next) {
     if (err) {
       console.log(err);  // handle errors
     } else {
-      user.subscribed=false;
+      user.subscribed = false;
       user.save(function (err) {
         if (err) return handleError(err);
         res.send("You have been unsubscribed");
