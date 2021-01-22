@@ -78,8 +78,7 @@ function notifyMeeting(topic) {
         if (!user.subscribed) {
           return
         }
-
-
+        
         const [ firstName, lastName ] = nameSplit(user.name);
         joinRoom(topic.kalturaResourceId, firstName, lastName, user.email, function (joinLink) {
           getTransporter().sendMail({
