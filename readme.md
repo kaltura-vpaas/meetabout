@@ -51,11 +51,11 @@ Begin by creating a topic to have a meeting about! Enter a topic into "More Topi
 
 ### Finding a Meeting
 
-Click on the "Find Meetings" button and you will see a list of all the topics you subscribed to. Click the "Meet About: [topic]" button to open the virtual meeting room in a new window.
+Click on the "Find Meetings" button and you will see a list of all the topics you subscribed to. Choose any topic, and then click the "Meet About: [topic]" button to open the virtual meeting room in a new window.
 
 <img src="/assets/images/meetabout/findmeeting.png" alt="addtopic" style="zoom:50%;" />
 
-Click on the other user to go to the meeting page.
+
 
 ## A Meeting!
 
