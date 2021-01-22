@@ -38,16 +38,7 @@
     </div>
     </div>
 
-    <div id="yourdesc">
-        <h2>A bit about yourself:</h2>
-        <form id="descform" action="/updatedesc" method="POST">
-            <textarea name="desc"><% if(user) { %><%=user.desc%><% } %></textarea>
-          
-                <input class="findmeetingsubmit" type="submit" value="Find Meetings">
-          
-           
-        </form>
-    </div>
+    <a href="find_meetings" class="findmeetingsubmit">Find Meetings</a>
     <br>
     
     <div id="modalLogin" class="modal">

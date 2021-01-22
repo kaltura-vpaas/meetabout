@@ -32,11 +32,13 @@ passport.use(new LocalStrategy(
   }
 ));
 
+/*
+disallow this security hole in production
 router.post('/', 
   passport.authenticate('local', { failureRedirect: '/login' }),
   function(req, res) {
     res.redirect('/');
   }
-);
+);*/
 
 module.exports = router;
