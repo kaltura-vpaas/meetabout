@@ -51,28 +51,15 @@ Begin by creating a topic to have a meeting about! Enter a topic into "More Topi
 
 ### Finding a Meeting
 
-When clicking on the "Find Meetings" button, there will not be anyone to meet with. To find a (pseudo) partner, open another browser, log in with a different user, and subscribe to the topic you created with both users. After both users join, they will be able to see one another!
+Click on the "Find Meetings" button and you will see a list of all the topics you subscribed to. Click the "Meet About: [topic]" button to open the virtual meeting room in a new window.
 
-The UI will look like this:
-
-<img src="/assets/images/meetabout/foundmeeting.png" alt="foundmeeting" style="zoom:75%;" />
+<img src="/assets/images/meetabout/findmeeting.png" alt="addtopic" style="zoom:50%;" />
 
 Click on the other user to go to the meeting page.
 
 ## A Meeting!
 
-The meeting page is the location within *Meetabout* where meetings take place on a given topic. It consists of:
-
-1. Descriptions of the users in the meeting
-2. A Join Meeting button
-3. A chat area where users can chat via email and come back to this meeting page when a new message occurs.  Some setup is required to get the chat feature to work, which will be covered later.
-
-A meeting page will look like so:
-
-<img src="/assets/images/meetabout/meetingpage.png" alt="meetingpage" style="zoom:70%;" />
-
-If any user on this meeting page clicks on the "Join Meeting" button, they will enter a live, virtual meeting room:
-<img src="/assets/images/meetabout/newrow_room.png" alt="newrow_room" style="zoom:35%;" />
+## <img src="/assets/images/meetabout/newrow_room.png" alt="newrow_room" style="zoom:35%;" />
 
 ### Setting Up a Meeting: Beneath the Hood
 
