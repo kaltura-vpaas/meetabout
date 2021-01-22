@@ -26,6 +26,7 @@ function saveJax(topicId) {
 
 function doOnLoad(topics, isLoggedIn) {
     if (!isLoggedIn) {
+        /*
         $(document).on('click', function (e) {
             if (e?.target?.href?.includes("auth") || e?.target?.className == 'allow') {
                 //do nothing, aka don't show login
@@ -39,6 +40,7 @@ function doOnLoad(topics, isLoggedIn) {
                 showClose: false
             });
         });
+        */
     }
 
     $("#descform").validate({

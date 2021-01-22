@@ -4,6 +4,8 @@
 <%}%>
     <%= user.name %>
 <% } else { %>
+    <!--
+        These a for a production env
 <div class="loginitem">
     <a href="/auth/microsoft"><img class="loginimg" src="/images/microsoft.png">Login with Microsoft</a>
 </div>
@@ -16,13 +18,12 @@
 <div class="loginitem">
     <a href="/auth/google"><img class="loginimg" src="/images/google.png">Login With Google</a>
 </div>
-<!-- <form action="/login" method="post">
+-->
+ <form action="/login" method="post">
         <label>Name:</label>
         <input type="text" name="username" /><br />
         <label>Email:</label>
         <input type="text" name="password" />
         <input type="submit" value="Submit" />
     </form>
-    -->
-
 <%}%>
