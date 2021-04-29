@@ -21,7 +21,7 @@ router.get('/', function (req, res, next) {
       var topicName = topic.name;
       console.log("TOPIC NAME " + topicName);
       var user = req.session.passport.user;
-      const [firstName, lastName ] = nameSplit(user.name);
+      const [firstName, lastName] = nameSplit(user.name);
 
       if (topic.kalturaResourceId) {
         notifyMeeting(topic);
@@ -61,38 +61,19 @@ function nameSplit(name) {
   return [firstName, lastName];
 }
 
-//send a notification to everyone interested in this topic
+//send a notification to admin
 function notifyMeeting(topic) {
-  User.find({ topics: topic }).exec(function (err, users) {
-    if (err) {
-      console.log(err);  // handle errors
-    } else {
-      var emailCss;
-      try {
-        emailCss = fs.readFileSync('public/stylesheets/email.css');
-      } catch (e) {
-        console.log('Error:', e.stack);
-      }
-      users.forEach(function (user) {
-        //only notify subscribed users
-        if (!user.subscribed) {
-          return
-        }
-        
-        const [ firstName, lastName ] = nameSplit(user.name);
-        joinRoom(topic.kalturaResourceId, firstName, lastName, user.email, function (joinLink) {
-          getTransporter().sendMail({
-            from: '"MeetAbout" ' + process.env.SMTP_FROM, // sender address
-            to: user.email, // list of receivers
-            subject: "MeetAbout [New Message]! on: " + topic.name, // Subject line
-            html: buildMail(emailCss, topic.name, joinLink, user._id),
-          }, function (error, info) {
-            console.log(error);
-            console.log(info);
-          });
-        });
-      });
-    }
+  const [firstName, lastName] = nameSplit(process.env.ADMIN_NAME);
+  joinRoom(topic.kalturaResourceId, firstName, lastName, user.email, function (joinLink) {
+    getTransporter().sendMail({
+      from: '"MeetAbout" ' + process.env.SMTP_FROM, // sender address
+      to: process.env.ADMIN_EMAIL, // list of receivers
+      subject: "MeetAbout [New Message]! on: " + topic.name, // Subject line
+      html: buildMail(emailCss, topic.name, joinLink, user._id),
+    }, function (error, info) {
+      console.log(error);
+      console.log(info);
+    });
   });
 }
 
