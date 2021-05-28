@@ -77,12 +77,10 @@ function notifyMeeting(topic) {
   });
 }
 
-function buildMail(emailCss, topic, meetingLink, userId) {
+function buildMail(topic, meetingLink, userId) {
   return `<html>
   <head> 
-  <style>
-  ${emailCss}
-  </style>
+
   </head>
   <body>
   <h3>A meeting is happening now about: ${topic}</h3>
