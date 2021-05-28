@@ -64,12 +64,12 @@ function nameSplit(name) {
 //send a notification to admin
 function notifyMeeting(topic) {
   const [firstName, lastName] = nameSplit(process.env.ADMIN_NAME);
-  joinRoom(topic.kalturaResourceId, firstName, lastName, user.email, function (joinLink) {
+  joinRoom(topic.kalturaResourceId, firstName, lastName, process.env.ADMIN_EMAIL, function (joinLink) {
     getTransporter().sendMail({
       from: '"MeetAbout" ' + process.env.SMTP_FROM, // sender address
       to: process.env.ADMIN_EMAIL, // list of receivers
       subject: "MeetAbout [New Message]! on: " + topic.name, // Subject line
-      html: buildMail(emailCss, topic.name, joinLink, user._id),
+      html: buildMail(emailCss, topic.name, joinLink, process.env.ADMIN_NAME),
     }, function (error, info) {
       console.log(error);
       console.log(info);
