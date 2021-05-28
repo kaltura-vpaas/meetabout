@@ -69,7 +69,7 @@ function notifyMeeting(topic) {
       from: '"MeetAbout" ' + process.env.SMTP_FROM, // sender address
       to: process.env.ADMIN_EMAIL, // list of receivers
       subject: "MeetAbout [New Message]! on: " + topic.name, // Subject line
-      html: buildMail(emailCss, topic.name, joinLink, process.env.ADMIN_NAME),
+      html: buildMail(topic.name, joinLink, process.env.ADMIN_NAME),
     }, function (error, info) {
       console.log(error);
       console.log(info);
